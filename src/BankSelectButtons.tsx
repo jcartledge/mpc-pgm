@@ -1,9 +1,11 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 
+import {BankName} from './App';
+
 export type BankSelectButtonsProps = {
-  selectedBankNum: number;
-  setSelectedBankNum: Dispatch<SetStateAction<number>>;
+  selectedBankName: BankName;
+  setSelectedBankName: Dispatch<SetStateAction<BankName>>;
 };
 
 export const BankSelectButton = styled.button`
@@ -15,19 +17,19 @@ export const BankSelectButton = styled.button`
 `;
 
 const BankSelectButtons: React.FC<BankSelectButtonsProps> = ({
-  selectedBankNum,
-  setSelectedBankNum
+  selectedBankName,
+  setSelectedBankName
 }) => {
   return (
     <>
-      {[0, 1, 2, 3].map(bankNum => {
+      {['A', 'B', 'C', 'D'].map(bankName => {
         return (
           <BankSelectButton
-            key={bankNum}
-            onClick={() => setSelectedBankNum(bankNum)}
-            className={selectedBankNum === bankNum ? 'active' : undefined}
+            key={bankName}
+            onClick={() => setSelectedBankName(bankName as BankName)}
+            className={selectedBankName === bankName ? 'active' : undefined}
           >
-            {bankNum + 1}
+            {bankName}
           </BankSelectButton>
         );
       })}

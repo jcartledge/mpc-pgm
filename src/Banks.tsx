@@ -2,14 +2,15 @@ import React, { useReducer } from 'react';
 import Pad from './Pad';
 import { produce } from 'immer';
 import { Grid, Cell } from 'styled-css-grid';
+import { BankName } from './App';
 
-type Props = { selectedBankNum: number };
+type Props = { selectedBankName: BankName };
 
 type PadValue = boolean;
 type Bank = PadValue[];
-type BankList = Bank[];
+type BankList = { [K in BankName]: Bank };
 
-type ReducerAction = { type: 'toggle'; bank: number; pad: number };
+type ReducerAction = { type: 'toggle'; bank: BankName; pad: number };
 
 const reducer = (state: BankList, { type, bank, pad }: ReducerAction) =>
   produce(state, draft => {
@@ -22,23 +23,26 @@ const reducer = (state: BankList, { type, bank, pad }: ReducerAction) =>
     }
   });
 
-const initialState = Array(4)
-  .fill(0)
-  .map(_ => Array(16).fill(false));
+const initialState: BankList = {
+  A: Array(16).fill(false),
+  B: Array(16).fill(false),
+  C: Array(16).fill(false),
+  D: Array(16).fill(false)
+};
 
-const Banks: React.FC<Props> = ({ selectedBankNum }) => {
+const Banks: React.FC<Props> = ({ selectedBankName }) => {
   const [banks, dispatch] = useReducer(reducer, initialState);
   return (
     <Grid columns="100px 100px 100px 100px">
-      {banks[selectedBankNum].map((isOn, padNum) => (
+      {banks[selectedBankName].map((isOn, padNum) => (
         <Cell
-          key={`${selectedBankNum}:${padNum}`}
+          key={`${selectedBankName}:${padNum}`}
           top={4 - Math.floor(padNum / 4)}
           left={(padNum + 1) % 4}
         >
           <Pad
             onClick={() =>
-              dispatch({ type: 'toggle', bank: selectedBankNum, pad: padNum })
+              dispatch({ type: 'toggle', bank: selectedBankName, pad: padNum })
             }
             isOn={isOn}
           >

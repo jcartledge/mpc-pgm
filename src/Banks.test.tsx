@@ -4,6 +4,6 @@ import Banks from './Banks';
 
 describe('Banks', () => {
   it('should render without crashing', () => {
-    expect(() => shallow(<Banks selectedBankNum={1} />)).not.toThrow();
+    expect(() => shallow(<Banks selectedBankName="A" />)).not.toThrow();
   });
 });

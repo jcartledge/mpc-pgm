@@ -6,8 +6,8 @@ describe('BankSelectButtons', () => {
   const setupProps = (
     overrides: Partial<BankSelectButtonsProps> = {}
   ): BankSelectButtonsProps => ({
-    setSelectedBankNum: jest.fn(),
-    selectedBankNum: 0,
+    setSelectedBankName: jest.fn(),
+    selectedBankName: 'A',
     ...overrides
   });
   it('should render without crashing', () => {
@@ -26,12 +26,12 @@ describe('BankSelectButtons', () => {
     const root = shallow(
       <BankSelectButtons {...props} />
     );
-    [0, 1, 2, 3].forEach(i => {
+    ['A', 'B', 'C', 'D'].forEach((bankName, i) => {
       root
         .find(BankSelectButton)
         .at(i)
         .simulate('click');
-      expect(props.setSelectedBankNum).toHaveBeenCalledWith(i);
+      expect(props.setSelectedBankName).toHaveBeenCalledWith(bankName);
     });
   });
 });

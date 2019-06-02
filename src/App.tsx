@@ -2,15 +2,17 @@ import React, { useState } from 'react';
 import Banks from './Banks';
 import BankSelectButtons from './BankSelectButtons';
 
+export type BankName = 'A'|'B'|'C'|'D';
+
 const App: React.FC = () => {
-  const [selectedBank, setSelectedBank] = useState(0);
+  const [selectedBankName, setSelectedBankName] = useState<BankName>('A');
   return (
     <div className="App">
       <BankSelectButtons
-        selectedBankNum={selectedBank}
-        setSelectedBankNum={setSelectedBank}
+        selectedBankName={selectedBankName}
+        setSelectedBankName={setSelectedBankName}
       />
-      <Banks selectedBankNum={selectedBank} />
+      <Banks selectedBankName={selectedBankName} />
     </div>
   );
 };
