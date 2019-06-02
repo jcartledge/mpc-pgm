@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import BankSelectButtons, { BankSelectButtonsProps } from './BankSelectButtons';
+import BankSelectButtons, { BankSelectButton, BankSelectButtonsProps } from './BankSelectButtons';
 
 describe('BankSelectButtons', () => {
   const setupProps = (
@@ -18,7 +18,7 @@ describe('BankSelectButtons', () => {
   it('should render four buttons', () => {
     const props = setupProps();
     const root = shallow(<BankSelectButtons {...props} />);
-    expect(root.find('button').length).toBe(4);
+    expect(root.find(BankSelectButton).length).toBe(4);
   });
 
   it('should call setSelectedBank with the button number when the buttons are clicked', () => {
@@ -28,7 +28,7 @@ describe('BankSelectButtons', () => {
     );
     [0, 1, 2, 3].forEach(i => {
       root
-        .find('button')
+        .find(BankSelectButton)
         .at(i)
         .simulate('click');
       expect(props.setSelectedBankNum).toHaveBeenCalledWith(i);

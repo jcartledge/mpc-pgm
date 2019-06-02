@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import Pad from './Pad';
 import { produce } from 'immer';
+import { Grid, Cell } from 'styled-css-grid';
 
 type Props = { selectedBankNum: number };
 
@@ -9,6 +10,7 @@ type Bank = PadValue[];
 type BankList = Bank[];
 
 type ReducerAction = { type: 'toggle'; bank: number; pad: number };
+
 const reducer = (state: BankList, { type, bank, pad }: ReducerAction) =>
   produce(state, draft => {
     switch (type) {
@@ -27,17 +29,24 @@ const initialState = Array(4)
 const Banks: React.FC<Props> = ({ selectedBankNum }) => {
   const [banks, dispatch] = useReducer(reducer, initialState);
   return (
-    <>
+    <Grid columns="100px 100px 100px 100px">
       {banks[selectedBankNum].map((isOn, padNum) => (
-        <Pad
+        <Cell
           key={`${selectedBankNum}:${padNum}`}
-          onClick={() =>
-            dispatch({ type: 'toggle', bank: selectedBankNum, pad: padNum })
-          }
-          isOn={isOn}
-        />
+          top={4 - Math.floor(padNum / 4)}
+          left={(padNum + 1) % 4}
+        >
+          <Pad
+            onClick={() =>
+              dispatch({ type: 'toggle', bank: selectedBankNum, pad: padNum })
+            }
+            isOn={isOn}
+          >
+            {padNum + 1}
+          </Pad>
+        </Cell>
       ))}
-    </>
+    </Grid>
   );
 };
 
