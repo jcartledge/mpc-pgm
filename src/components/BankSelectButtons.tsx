@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 
-import {BankName} from './App';
+import {BankName} from '../lib/types';
 
 export type BankSelectButtonsProps = {
   selectedBankName: BankName;
@@ -27,7 +27,7 @@ const BankSelectButtons: React.FC<BankSelectButtonsProps> = ({
           <BankSelectButton
             key={bankName}
             onClick={() => setSelectedBankName(bankName as BankName)}
-            className={selectedBankName === bankName ? 'active' : undefined}
+            className={bankName === selectedBankName ? 'active' : undefined}
           >
             {bankName}
           </BankSelectButton>
