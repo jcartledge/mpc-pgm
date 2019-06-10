@@ -1,11 +1,13 @@
 import React, { useCallback, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
-import AppContext from '../lib/AppContext';
-import { playAudioBuffer } from '../lib/actions';
-import { PadValue } from '../lib/types';
 import styled from 'styled-components';
+import { playAudioBuffer as importedPlayAudioBuffer } from '../lib/actions';
+import AppContext from '../lib/AppContext';
+import { PadValue } from '../lib/types';
 
-export type PadProps = PadValue;
+export type PadProps = PadValue & {
+  playAudioBuffer?: (audioBuffer: AudioBuffer) => void;
+};
 
 export const PadButton = styled.button`
   width: 100px;
@@ -15,13 +17,19 @@ export const PadButton = styled.button`
   }
 `;
 
-const DropZone = styled.div`
+export const DropZone = styled.div`
   &.dragActive button {
     box-shadow: 0px 0px 5px 0px gold;
   }
 `;
 
-const Pad: React.FC<PadProps> = ({ setFile, clearFile, file, audioBuffer }) => {
+const Pad: React.FC<PadProps> = ({
+  setFile,
+  clearFile,
+  file,
+  audioBuffer,
+  playAudioBuffer = importedPlayAudioBuffer,
+}) => {
   const { dispatch } = useContext(AppContext);
   const onDrop = useCallback(
     acceptedFiles => {

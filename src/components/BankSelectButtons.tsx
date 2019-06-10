@@ -1,11 +1,10 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { useContext as importedUseContext } from 'react';
 import styled from 'styled-components';
-
-import {BankName} from '../lib/types';
+import { BankName } from '../lib/types';
+import AppContext, { AppContextValue } from '../lib/AppContext';
 
 export type BankSelectButtonsProps = {
-  selectedBankName: BankName;
-  setSelectedBankName: Dispatch<SetStateAction<BankName>>;
+  useContext?: (context: React.Context<AppContextValue>) => AppContextValue;
 };
 
 export const BankSelectButton = styled.button`
@@ -17,16 +16,19 @@ export const BankSelectButton = styled.button`
 `;
 
 const BankSelectButtons: React.FC<BankSelectButtonsProps> = ({
-  selectedBankName,
-  setSelectedBankName
+  useContext = importedUseContext,
 }) => {
+  const { state, dispatch } = useContext(AppContext);
+  const { selectedBankName } = state;
   return (
     <>
-      {['A', 'B', 'C', 'D'].map(bankName => {
+      {(['A', 'B', 'C', 'D'] as BankName[]).map(bankName => {
         return (
           <BankSelectButton
             key={bankName}
-            onClick={() => setSelectedBankName(bankName as BankName)}
+            onClick={() =>
+              dispatch && dispatch({ type: 'setSelectedBankName', bankName })
+            }
             className={bankName === selectedBankName ? 'active' : undefined}
           >
             {bankName}

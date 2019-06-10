@@ -1,4 +1,8 @@
-import { ReducerClearFileAction, ReducerSetFileAction } from './reducers';
+import {
+  ReducerClearFileAction,
+  ReducerSetFileAction,
+  ReducerSetSelectedBankNameAction,
+} from './reducers';
 import { AppState } from './types';
 
 const audioContext = new window.AudioContext();
@@ -12,7 +16,7 @@ export const playAudioBuffer = (audioBuffer: AudioBuffer): void => {
 
 export const getAudioBuffer = (
   file: File,
-  cb: (arg0: AudioBuffer) => void
+  cb: (arg0: AudioBuffer) => void,
 ): void => {
   const reader = new FileReader();
   reader.onerror = () => {
@@ -21,7 +25,7 @@ export const getAudioBuffer = (
   };
   reader.onload = async () => {
     const audioBuffer = await audioContext.decodeAudioData(
-      reader.result as ArrayBuffer
+      reader.result as ArrayBuffer,
     );
     cb(audioBuffer);
   };
@@ -30,7 +34,7 @@ export const getAudioBuffer = (
 
 export const setFile = (
   { bankName, padNum, file, audioBuffer }: ReducerSetFileAction,
-  draft: AppState
+  draft: AppState,
 ) => {
   const pad = draft.banks[bankName][padNum];
   pad.file = file;
@@ -39,9 +43,16 @@ export const setFile = (
 
 export const clearFile = (
   { bankName, padNum }: ReducerClearFileAction,
-  draft: AppState
+  draft: AppState,
 ) => {
   const pad = draft.banks[bankName][padNum];
   delete pad.file;
   delete pad.audioBuffer;
+};
+
+export const setSelectedBankName = (
+  { bankName }: ReducerSetSelectedBankNameAction,
+  draft: AppState,
+) => {
+  draft.selectedBankName = bankName;
 };

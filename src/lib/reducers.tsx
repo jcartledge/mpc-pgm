@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 import { AppState, BankName } from '../lib/types';
-import { clearFile, setFile } from './actions';
+import { clearFile, setFile, setSelectedBankName } from './actions';
 
 export type ReducerSetFileAction = {
   type: 'setFile';
@@ -16,7 +16,15 @@ export type ReducerClearFileAction = {
   padNum: number;
 };
 
-export type ReducerAction = ReducerSetFileAction | ReducerClearFileAction;
+export type ReducerSetSelectedBankNameAction = {
+  type: 'setSelectedBankName';
+  bankName: BankName;
+};
+
+export type ReducerAction =
+  | ReducerSetFileAction
+  | ReducerClearFileAction
+  | ReducerSetSelectedBankNameAction;
 
 export const reducer = (state: AppState, { type, ...action }: ReducerAction) =>
   produce(state, (draft: AppState) => {
@@ -27,6 +35,10 @@ export const reducer = (state: AppState, { type, ...action }: ReducerAction) =>
 
       case 'clearFile':
         clearFile(action as ReducerClearFileAction, draft);
+        break;
+
+      case 'setSelectedBankName':
+        setSelectedBankName(action as ReducerSetSelectedBankNameAction, draft);
         break;
 
       default:

@@ -1,14 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Banks from './Banks';
+import Banks, { BanksProps } from './Banks';
+import {setupContext} from '../lib/testSupport';
 
 describe('Banks', () => {
-  it('should render without crashing', () => {
-    expect(() => shallow(<Banks bankName="A" />)).not.toThrow();
+  const setupProps = (overrides: Partial<BanksProps> = {}): BanksProps => ({
+    useContext: jest.fn().mockReturnValue(setupContext()),
+    ...overrides,
   });
+
+  it('should render without crashing', () => {
+    const props = setupProps();
+    expect(() => shallow(<Banks {...props} />)).not.toThrow();
+  });
+
   it('should render the correct bank', () => {});
   it('should render pads in the correct order', () => {});
-  it('should pass setFile to PadDropZone', () => {});
-  it('should pass onClick to Pad', () => {});
-  it('should pass filename to Pad', () => {});
+  it('should pass PadValue to Pad', () => {});
 });

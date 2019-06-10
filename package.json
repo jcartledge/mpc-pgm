@@ -49,6 +49,7 @@
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.2",
     "prettier": "^1.17.1",
-    "typescript-styled-plugin": "^0.14.0"
+    "typescript-styled-plugin": "^0.14.0",
+    "web-audio-test-api": "^0.5.2"
   }
 }
