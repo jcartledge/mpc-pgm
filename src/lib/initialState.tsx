@@ -1,11 +1,20 @@
-import { BankList, PadValue } from './types';
+import { BankList, PadValue, BankName } from './types';
+import { ReducerSetFileAction } from './reducers';
+import {getAudioBuffer} from './actions';
 
-const emptyBank = (size: number = 16): PadValue[] =>
-  Array(size).fill({});
+const emptyBank = (bankName: BankName, size: number = 16): PadValue[] =>
+  Array(size)
+    .fill(0)
+    .map((_, padNum) => ({
+      setFile: (file: File, dispatch: React.Dispatch<ReducerSetFileAction> | null) =>
+        getAudioBuffer(file, audioBuffer =>
+          dispatch && dispatch({ type: 'setFile', bankName, padNum, file, audioBuffer })
+        )
+    }));
 
 export const initialState: BankList = {
-  A: emptyBank(),
-  B: emptyBank(),
-  C: emptyBank(),
-  D: emptyBank()
+  A: emptyBank('A'),
+  B: emptyBank('B'),
+  C: emptyBank('C'),
+  D: emptyBank('D')
 };

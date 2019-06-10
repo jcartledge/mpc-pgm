@@ -1,24 +1,24 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { FaUpload } from 'react-icons/fa';
+import {PadValue} from '../lib/types';
+import AppContext from '../lib/AppContext';
 
-type PadDropZoneProps = {
-  setFile: (arg0: File) => void;
-};
+type PadDropZoneProps = Pick<PadValue, 'setFile'>;
 
-const PadDropZone: React.FC<PadDropZoneProps> = ({ setFile }) => {
+const PadDropZone: React.FC<PadDropZoneProps> = ({ setFile, children }) => {
+  const { dispatch} = useContext(AppContext);
   const onDrop = useCallback(
     acceptedFiles => {
       const [file] = acceptedFiles;
-      setFile(file);
+      setFile(file, dispatch);
     },
-    [setFile]
+    [setFile, dispatch]
   );
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
     <div {...getRootProps()}>
-      <FaUpload />
+      {children}
       <input {...getInputProps()} />
     </div>
   );

@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import PadDropZone from './PadDropZone';
+import { playAudioBuffer } from '../lib/actions';
+import { PadValue } from '../lib/types';
 
-export type PadProps = { onClick?: () => void };
+export type PadProps = PadValue;
 
 export const PadButton = styled.button`
   width: 100px;
@@ -11,13 +14,17 @@ export const PadButton = styled.button`
   }
 `;
 
-const Pad: React.FC<PadProps> = ({ onClick, children }) => {
-  return (
+const Pad: React.FC<PadProps> = ({ setFile, file, audioBuffer }) => {
+  return audioBuffer ? (
     <>
-      <PadButton onClick={onClick || undefined} disabled={!onClick}>
-        {children}
+      <PadButton onClick={() => playAudioBuffer(audioBuffer)}>
+        {file ? file.name : ''}
       </PadButton>
     </>
+  ) : (
+    <PadDropZone setFile={setFile}>
+      <PadButton />
+    </PadDropZone>
   );
 };
 
