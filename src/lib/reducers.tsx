@@ -6,7 +6,7 @@ export type ReducerSetFileAction = {
   bankName: BankName;
   padNum: number;
   file: File;
-  audioBuffer: ArrayBuffer;
+  audioBuffer: AudioBuffer;
 };
 
 export type ReducerAction = ReducerSetFileAction;

@@ -9,6 +9,7 @@
     "@types/react-dom": "16.8.4",
     "@types/react-dropzone": "^4.2.2",
     "@types/styled-components": "^4.1.15",
+    "@types/webaudioapi": "^0.0.27",
     "immer": "^3.1.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
