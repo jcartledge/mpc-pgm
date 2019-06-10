@@ -1,5 +1,6 @@
 import { produce } from 'immer';
 import { AppState, BankName } from '../lib/types';
+import { clearFile, setFile } from './actions';
 
 export type ReducerSetFileAction = {
   type: 'setFile';
@@ -9,16 +10,23 @@ export type ReducerSetFileAction = {
   audioBuffer: AudioBuffer;
 };
 
-export type ReducerAction = ReducerSetFileAction;
+export type ReducerClearFileAction = {
+  type: 'clearFile';
+  bankName: BankName;
+  padNum: number;
+};
+
+export type ReducerAction = ReducerSetFileAction | ReducerClearFileAction;
 
 export const reducer = (state: AppState, { type, ...action }: ReducerAction) =>
   produce(state, (draft: AppState) => {
     switch (type) {
       case 'setFile':
-        const { bankName, padNum, file, audioBuffer } = action;
-        const pad = draft.banks[bankName][padNum];
-        pad.file = file;
-        pad.audioBuffer = audioBuffer;
+        setFile(action as ReducerSetFileAction, draft);
+        break;
+
+      case 'clearFile':
+        clearFile(action as ReducerClearFileAction, draft);
         break;
 
       default:

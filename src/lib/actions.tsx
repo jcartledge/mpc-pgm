@@ -1,3 +1,6 @@
+import { ReducerClearFileAction, ReducerSetFileAction } from './reducers';
+import { AppState } from './types';
+
 const audioContext = new window.AudioContext();
 
 export const playAudioBuffer = (audioBuffer: AudioBuffer): void => {
@@ -23,4 +26,22 @@ export const getAudioBuffer = (
     cb(audioBuffer);
   };
   reader.readAsArrayBuffer(file);
+};
+
+export const setFile = (
+  { bankName, padNum, file, audioBuffer }: ReducerSetFileAction,
+  draft: AppState
+) => {
+  const pad = draft.banks[bankName][padNum];
+  pad.file = file;
+  pad.audioBuffer = audioBuffer;
+};
+
+export const clearFile = (
+  { bankName, padNum }: ReducerClearFileAction,
+  draft: AppState
+) => {
+  const pad = draft.banks[bankName][padNum];
+  delete pad.file;
+  delete pad.audioBuffer;
 };
