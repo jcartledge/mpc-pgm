@@ -21,21 +21,20 @@ const DropZone = styled.div`
   }
 `;
 
-const Pad: React.FC<PadProps> = ({ setFile, file, audioBuffer }) => {
+const Pad: React.FC<PadProps> = ({ setFile, clearFile, file, audioBuffer }) => {
   const { dispatch } = useContext(AppContext);
   const onDrop = useCallback(
     acceptedFiles => {
       const [file] = acceptedFiles;
       setFile(file, dispatch);
     },
-    [setFile, dispatch]
+    [setFile, dispatch],
   );
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   return audioBuffer ? (
     <PadButton
-      onClick={e => {
-        playAudioBuffer(audioBuffer);
-      }}
+      onClick={() => playAudioBuffer(audioBuffer)}
+      onKeyUp={e => e.key === 'Backspace' && clearFile(dispatch)}
     >
       {file ? file.name : ''}
     </PadButton>

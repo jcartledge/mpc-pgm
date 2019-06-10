@@ -29,7 +29,8 @@
     "extends": "react-app"
   },
   "prettier": {
-    "singleQuote": true
+    "singleQuote": true,
+    "trailingComma": "all"
   },
   "browserslist": {
     "production": [
