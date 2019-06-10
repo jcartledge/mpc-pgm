@@ -1,5 +1,5 @@
-import { BankName, BankList } from '../lib/types';
 import { produce } from 'immer';
+import { AppState, BankName } from '../lib/types';
 
 export type ReducerSetFileAction = {
   type: 'setFile';
@@ -11,15 +11,12 @@ export type ReducerSetFileAction = {
 
 export type ReducerAction = ReducerSetFileAction;
 
-export const reducer = (
-  state: BankList,
-  { type, ...action }: ReducerAction
-) =>
-  produce(state, draft => {
+export const reducer = (state: AppState, { type, ...action }: ReducerAction) =>
+  produce(state, (draft: AppState) => {
     switch (type) {
       case 'setFile':
         const { bankName, padNum, file, audioBuffer } = action;
-        const pad = draft[bankName][padNum];
+        const pad = draft.banks[bankName][padNum];
         pad.file = file;
         pad.audioBuffer = audioBuffer;
         break;

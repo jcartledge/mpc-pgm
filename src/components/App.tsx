@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
+import AppContext from '../lib/AppContext';
+import { initialState as importedInitialState } from '../lib/initialState';
+import { reducer } from '../lib/reducers';
+import { AppState, BankName } from '../lib/types';
 import Banks from './Banks';
 import BankSelectButtons from './BankSelectButtons';
-import { BankName } from '../lib/types';
 
-const App: React.FC = () => {
+type AppProps = { initialState?: AppState };
+const App: React.FC<AppProps> = ({ initialState = importedInitialState }) => {
   const [bankName, setSelectedBankName] = useState<BankName>('A');
+  const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <div className="App">
+    <AppContext.Provider value={{ state, dispatch }}>
       <BankSelectButtons
         selectedBankName={bankName}
         setSelectedBankName={setSelectedBankName}
       />
       <Banks bankName={bankName} />
-    </div>
+    </AppContext.Provider>
   );
 };
 

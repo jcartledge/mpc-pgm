@@ -1,34 +1,26 @@
-import React, { useReducer } from 'react';
-import Pad from './Pad';
-import { BankName, BankList } from '../lib/types';
-import { reducer } from '../lib/reducers';
+import React, {useContext} from 'react';
+import {Cell, Grid} from 'styled-css-grid';
 import AppContext from '../lib/AppContext';
-import { initialState as importedInitialState } from '../lib/initialState';
+import {BankName, PadValue} from '../lib/types';
+import Pad from './Pad';
 
-import { Grid, Cell } from 'styled-css-grid';
+type BanksProps = { bankName: BankName };
 
-type Props = { bankName: BankName; initialState?: BankList };
-
-const Banks: React.FC<Props> = ({
-  bankName,
-  initialState = importedInitialState
-}) => {
-  const [banks, dispatch] = useReducer(reducer, initialState);
+const Banks: React.FC<BanksProps> = ({ bankName }) => {
+  const {state} = useContext(AppContext);
+  const {banks} = state;
   return (
-    <AppContext.Provider value={{ dispatch }}>
       <Grid columns="100px 100px 100px 100px">
-        {banks[bankName].map((padProps, padNum) => (
+        {banks[bankName].map((padProps: PadValue, padNum: number) => (
           <Cell
             key={`${bankName}:${padNum}`}
             top={4 - Math.floor(padNum / 4)}
             left={(padNum + 1) % 4}
           >
-            {padNum + 1}
             <Pad {...padProps} />
           </Cell>
         ))}
       </Grid>
-    </AppContext.Provider>
   );
 };
 

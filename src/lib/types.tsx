@@ -11,3 +11,7 @@ export type PadValue = {
 };
 export type Bank = PadValue[];
 export type BankList = { [K in BankName]: Bank };
+
+export type AppState = {
+  banks: BankList;
+};

@@ -1,8 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
-import PadDropZone from './PadDropZone';
+import React, { useCallback, useContext } from 'react';
+import { useDropzone } from 'react-dropzone';
+import AppContext from '../lib/AppContext';
 import { playAudioBuffer } from '../lib/actions';
 import { PadValue } from '../lib/types';
+import styled from 'styled-components';
 
 export type PadProps = PadValue;
 
@@ -14,17 +15,37 @@ export const PadButton = styled.button`
   }
 `;
 
+const DropZone = styled.div`
+  &.dragActive button {
+    box-shadow: 0px 0px 5px 0px gold;
+  }
+`;
+
 const Pad: React.FC<PadProps> = ({ setFile, file, audioBuffer }) => {
+  const { dispatch } = useContext(AppContext);
+  const onDrop = useCallback(
+    acceptedFiles => {
+      const [file] = acceptedFiles;
+      setFile(file, dispatch);
+    },
+    [setFile, dispatch]
+  );
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   return audioBuffer ? (
-    <>
-      <PadButton onClick={() => playAudioBuffer(audioBuffer)}>
-        {file ? file.name : ''}
-      </PadButton>
-    </>
+    <PadButton
+      onClick={e => {
+        playAudioBuffer(audioBuffer);
+      }}
+    >
+      {file ? file.name : ''}
+    </PadButton>
   ) : (
-    <PadDropZone setFile={setFile}>
+    <DropZone
+      {...getRootProps({ className: isDragActive ? 'dragActive' : '' })}
+    >
       <PadButton />
-    </PadDropZone>
+      <input {...getInputProps()} />
+    </DropZone>
   );
 };
 
