@@ -1,9 +1,9 @@
 import { createContext } from 'react';
-import { ReducerAction } from './reducers';
+import { AppAction } from './actions';
 import { AppState } from './types';
 
 export type AppContextValue = {
-  dispatch: React.Dispatch<ReducerAction> | null;
+  dispatch: React.Dispatch<AppAction> | null;
   state: AppState;
 };
 

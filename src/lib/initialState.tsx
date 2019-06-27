@@ -1,10 +1,11 @@
-import { getAudioBuffer, playAudioBuffer } from './actions';
-import { ReducerClearFileAction, ReducerSetFileAction } from './reducers';
+import { ClearFileAction, SetFileAction } from './actions';
+import getAudioBuffer from './getAudioBuffer';
+import playAudioBuffer from './playAudioBuffer';
 import { AppState, BankName, PadValue } from './types';
 
 const setFileFn = (padNum: number, bankName: BankName) => (
   file: File,
-  dispatch: React.Dispatch<ReducerSetFileAction> | null,
+  dispatch: React.Dispatch<SetFileAction> | null,
 ) => {
   getAudioBuffer(file, audioBuffer => {
     dispatch &&
@@ -14,7 +15,7 @@ const setFileFn = (padNum: number, bankName: BankName) => (
 };
 
 const clearFileFn = (padNum: number, bankName: BankName) => (
-  dispatch: React.Dispatch<ReducerClearFileAction> | null,
+  dispatch: React.Dispatch<ClearFileAction> | null,
 ) => dispatch && dispatch({ type: 'clearFile', bankName, padNum });
 
 const emptyBank = (bankName: BankName, size: number = 16): PadValue[] =>

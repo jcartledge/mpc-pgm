@@ -1,58 +1,25 @@
-import {
-  ReducerClearFileAction,
-  ReducerSetFileAction,
-  ReducerSetSelectedBankNameAction,
-} from './reducers';
-import { AppState } from './types';
+import { BankName } from './types';
 
-const audioContext = new window.AudioContext();
-
-export const playAudioBuffer = (audioBuffer: AudioBuffer): void => {
-  const source = audioContext.createBufferSource();
-  source.buffer = audioBuffer;
-  source.connect(audioContext.destination);
-  source.start();
+export type SetFileAction = {
+  type: 'setFile';
+  bankName: BankName;
+  padNum: number;
+  file: File;
+  audioBuffer: AudioBuffer;
 };
 
-export const getAudioBuffer = (
-  file: File,
-  cb: (arg0: AudioBuffer) => void,
-): void => {
-  const reader = new FileReader();
-  reader.onerror = () => {
-    reader.abort();
-    throw new DOMException('Problem parsing input file.');
-  };
-  reader.onload = async () => {
-    const audioBuffer = await audioContext.decodeAudioData(
-      reader.result as ArrayBuffer,
-    );
-    cb(audioBuffer);
-  };
-  reader.readAsArrayBuffer(file);
+export type ClearFileAction = {
+  type: 'clearFile';
+  bankName: BankName;
+  padNum: number;
 };
 
-export const setFile = (
-  { bankName, padNum, file, audioBuffer }: ReducerSetFileAction,
-  draft: AppState,
-) => {
-  const pad = draft.banks[bankName][padNum];
-  pad.file = file;
-  pad.audioBuffer = audioBuffer;
+export type SetSelectedBankNameAction = {
+  type: 'setSelectedBankName';
+  bankName: BankName;
 };
 
-export const clearFile = (
-  { bankName, padNum }: ReducerClearFileAction,
-  draft: AppState,
-) => {
-  const pad = draft.banks[bankName][padNum];
-  delete pad.file;
-  delete pad.audioBuffer;
-};
-
-export const setSelectedBankName = (
-  { bankName }: ReducerSetSelectedBankNameAction,
-  draft: AppState,
-) => {
-  draft.selectedBankName = bankName;
-};
+export type AppAction =
+  | SetFileAction
+  | ClearFileAction
+  | SetSelectedBankNameAction;

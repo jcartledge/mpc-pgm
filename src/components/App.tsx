@@ -7,6 +7,7 @@ import Banks from './Banks';
 import BankSelectButtons from './BankSelectButtons';
 
 type AppProps = { initialState?: AppState };
+
 const App: React.FC<AppProps> = ({ initialState = importedInitialState }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return (

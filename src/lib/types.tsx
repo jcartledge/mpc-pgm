@@ -1,4 +1,4 @@
-import { ReducerSetFileAction, ReducerClearFileAction } from './reducers';
+import { SetFileAction, ClearFileAction } from './actions';
 
 export type BankName = 'A' | 'B' | 'C' | 'D';
 
@@ -7,11 +7,9 @@ export type PadValue = {
   audioBuffer?: AudioBuffer;
   setFile: (
     file: File,
-    dispatch: React.Dispatch<ReducerSetFileAction> | null
+    dispatch: React.Dispatch<SetFileAction> | null,
   ) => void;
-  clearFile: (
-    dispatch: React.Dispatch<ReducerClearFileAction> | null
-  ) => void;
+  clearFile: (dispatch: React.Dispatch<ClearFileAction> | null) => void;
 };
 
 export type Bank = PadValue[];

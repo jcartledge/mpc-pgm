@@ -1,44 +1,45 @@
-import { produce } from 'immer';
-import { AppState, BankName } from '../lib/types';
-import { clearFile, setFile, setSelectedBankName } from './actions';
+import {produce} from 'immer';
+import {AppAction, ClearFileAction, SetFileAction, SetSelectedBankNameAction} from './actions';
+import {AppState} from './types';
 
-export type ReducerSetFileAction = {
-  type: 'setFile';
-  bankName: BankName;
-  padNum: number;
-  file: File;
-  audioBuffer: AudioBuffer;
+const setFile = (
+  { bankName, padNum, file, audioBuffer }: SetFileAction,
+  draft: AppState,
+) => {
+  const pad = draft.banks[bankName][padNum];
+  pad.file = file;
+  pad.audioBuffer = audioBuffer;
 };
 
-export type ReducerClearFileAction = {
-  type: 'clearFile';
-  bankName: BankName;
-  padNum: number;
+const clearFile = (
+  { bankName, padNum }: ClearFileAction,
+  draft: AppState,
+) => {
+  const pad = draft.banks[bankName][padNum];
+  delete pad.file;
+  delete pad.audioBuffer;
 };
 
-export type ReducerSetSelectedBankNameAction = {
-  type: 'setSelectedBankName';
-  bankName: BankName;
+const setSelectedBankName = (
+  { bankName }: SetSelectedBankNameAction,
+  draft: AppState,
+) => {
+  draft.selectedBankName = bankName;
 };
 
-export type ReducerAction =
-  | ReducerSetFileAction
-  | ReducerClearFileAction
-  | ReducerSetSelectedBankNameAction;
-
-export const reducer = (state: AppState, { type, ...action }: ReducerAction) =>
+export const reducer = (state: AppState, { type, ...action }: AppAction) =>
   produce(state, (draft: AppState) => {
     switch (type) {
       case 'setFile':
-        setFile(action as ReducerSetFileAction, draft);
+        setFile(action as SetFileAction, draft);
         break;
 
       case 'clearFile':
-        clearFile(action as ReducerClearFileAction, draft);
+        clearFile(action as ClearFileAction, draft);
         break;
 
       case 'setSelectedBankName':
-        setSelectedBankName(action as ReducerSetSelectedBankNameAction, draft);
+        setSelectedBankName(action as SetSelectedBankNameAction, draft);
         break;
 
       default:

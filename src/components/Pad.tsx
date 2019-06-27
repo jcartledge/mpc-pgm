@@ -1,8 +1,8 @@
 import React, { useCallback, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled from 'styled-components';
-import { playAudioBuffer as importedPlayAudioBuffer } from '../lib/actions';
 import AppContext from '../lib/AppContext';
+import importedPlayAudioBuffer from '../lib/playAudioBuffer';
 import { PadValue } from '../lib/types';
 
 export type PadProps = PadValue & {
