@@ -5,10 +5,7 @@ export type BankName = 'A' | 'B' | 'C' | 'D';
 export type PadValue = {
   file?: File;
   audioBuffer?: AudioBuffer;
-  setFile: (
-    file: File,
-    dispatch: React.Dispatch<SetFileAction> | null,
-  ) => void;
+  setFile: (file: File, dispatch: React.Dispatch<SetFileAction> | null) => void;
   clearFile: (dispatch: React.Dispatch<ClearFileAction> | null) => void;
 };
 

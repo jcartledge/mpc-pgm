@@ -1,6 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Pad, { PadProps, PadButton, DropZone } from './Pad';
+import Pad, { PadProps} from './Pad';
+import PadButton from './styled/PadButton';
+import DropZone  from './styled/DropZone';
 
 describe('Pad', () => {
   const setupProps = (overrides: Partial<PadProps> = {}): PadProps => ({

@@ -1,27 +1,14 @@
 import React, { useCallback, useContext } from 'react';
 import { useDropzone } from 'react-dropzone';
-import styled from 'styled-components';
 import AppContext from '../lib/AppContext';
 import importedPlayAudioBuffer from '../lib/playAudioBuffer';
 import { PadValue } from '../lib/types';
+import DropZone from './styled/DropZone';
+import PadButton from './styled/PadButton';
 
 export type PadProps = PadValue & {
   playAudioBuffer?: (audioBuffer: AudioBuffer) => void;
 };
-
-export const PadButton = styled.button`
-  width: 100px;
-  height: 100px;
-  &.active {
-    background-color: silver;
-  }
-`;
-
-export const DropZone = styled.div`
-  &.dragActive button {
-    box-shadow: 0px 0px 5px 0px gold;
-  }
-`;
 
 const Pad: React.FC<PadProps> = ({
   setFile,
