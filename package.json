@@ -2,7 +2,7 @@
   "name": "mpc-pgm",
   "main": "public/electron.js",
   "homepage": "./",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": {
     "name": "James Cartledge",
     "email": "jcartledge@gmail.com",
