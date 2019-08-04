@@ -1,6 +1,24 @@
 {
   "name": "mpc-pgm",
+  "main": "public/electron.js",
+  "homepage": "./",
   "version": "0.1.0",
+  "author": {
+    "name": "James Cartledge",
+    "email": "jcartledge@gmail.com",
+    "url": "https://github.com/jcartledge/mpc-pgm"
+  },
+  "build": {
+    "appId": "com.jcartledge.mpc-pgm",
+    "productName": "mpc-pgm",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
   "private": true,
   "dependencies": {
     "@types/jest": "24.0.13",
@@ -10,6 +28,7 @@
     "@types/react-dropzone": "^4.2.2",
     "@types/styled-components": "^4.1.15",
     "@types/webaudioapi": "^0.0.27",
+    "electron-is-dev": "^1.1.0",
     "immer": "^3.1.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -20,10 +39,14 @@
     "typescript": "3.5.1"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "electron-pack": "electron-builder -mw",
+    "postinstall": "electron-builder install-app-deps",
+    "preelectron-pack": "yarn build",
+    "start": "react-scripts start",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,10 +69,14 @@
   },
   "devDependencies": {
     "@types/enzyme": "^3.9.3",
+    "concurrently": "^4.1.1",
+    "electron": "^6.0.0",
+    "electron-builder": "^21.2.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.2",
     "prettier": "^1.17.1",
     "typescript-styled-plugin": "^0.14.0",
+    "wait-on": "^3.3.0",
     "web-audio-test-api": "^0.5.2"
   }
 }
