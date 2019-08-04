@@ -2,7 +2,7 @@
   "name": "mpc-pgm",
   "main": "public/electron.js",
   "homepage": "./",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "James Cartledge",
     "email": "jcartledge@gmail.com",
@@ -52,6 +52,7 @@
     "postinstall": "electron-builder install-app-deps",
     "preelectron-pack": "yarn build",
     "preflight": "yarn audit && yarn lint",
+    "release": "yarn version && git push",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
