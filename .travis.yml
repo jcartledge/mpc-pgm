@@ -8,4 +8,4 @@ jobs:
     - stage: test
       script: yarn test
     - stage: build
-      script: yarn electron-build
+      script: yarn electron-pack
