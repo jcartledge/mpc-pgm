@@ -44,12 +44,14 @@
   },
   "scripts": {
     "build": "react-scripts build",
+    "ci": "yarn preflight && yarn test",
     "eject": "react-scripts eject",
     "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "electron-pack": "electron-builder --mac",
     "lint": "eslint './src/**/*.{ts,tsx}'",
     "postinstall": "electron-builder install-app-deps",
     "preelectron-pack": "yarn build",
+    "preflight": "yarn audit && yarn lint",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
@@ -89,6 +91,6 @@
     }
   },
   "lint-staged": {
-    "*": "yarn audit && yarn lint"
+    "*": "yarn preflight"
   }
 }

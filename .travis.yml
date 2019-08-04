@@ -3,12 +3,8 @@ node_js:
   - '12'
 jobs:
   include:
-    - stage: pre-test
-      script:
-        - yarn audit
-        - yarn lint
     - stage: test
-      script: yarn test
+      script: yarn ci
     - stage: build
       os: osx
       if: tag IS present AND branch = master
