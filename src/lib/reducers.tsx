@@ -1,6 +1,11 @@
-import {produce} from 'immer';
-import {AppAction, ClearFileAction, SetFileAction, SetSelectedBankNameAction} from './actions';
-import {AppState} from './types';
+import { produce } from 'immer';
+import {
+  AppAction,
+  ClearFileAction,
+  SetFileAction,
+  SetSelectedBankNameAction,
+} from './actions';
+import { AppState } from './types';
 
 const setFile = (
   { bankName, padNum, file, audioBuffer }: SetFileAction,
@@ -11,10 +16,7 @@ const setFile = (
   pad.audioBuffer = audioBuffer;
 };
 
-const clearFile = (
-  { bankName, padNum }: ClearFileAction,
-  draft: AppState,
-) => {
+const clearFile = ({ bankName, padNum }: ClearFileAction, draft: AppState) => {
   const pad = draft.banks[bankName][padNum];
   delete pad.file;
   delete pad.audioBuffer;

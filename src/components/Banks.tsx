@@ -4,13 +4,11 @@ import AppContext, { AppContextValue } from '../lib/AppContext';
 import { PadValue } from '../lib/types';
 import Pad from './Pad';
 
-export type BanksProps = {
+export interface BanksProps {
   useContext?: (context: React.Context<AppContextValue>) => AppContextValue;
-};
+}
 
-const Banks: React.FC<BanksProps> = ({
-  useContext = importedUseContext,
-}) => {
+const Banks: React.FC<BanksProps> = ({ useContext = importedUseContext }) => {
   const { state } = useContext(AppContext);
   const { banks, selectedBankName } = state;
   return (

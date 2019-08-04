@@ -1,7 +1,4 @@
-const getAudioBuffer = (
-  file: File,
-  cb: (arg0: AudioBuffer) => void,
-): void => {
+const getAudioBuffer = (file: File, cb: (arg0: AudioBuffer) => void): void => {
   const reader = new FileReader();
   reader.onerror = () => {
     reader.abort();

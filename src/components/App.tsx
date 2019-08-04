@@ -6,7 +6,9 @@ import { AppState } from '../lib/types';
 import Banks from './Banks';
 import BankSelectButtons from './BankSelectButtons';
 
-type AppProps = { initialState?: AppState };
+interface AppProps {
+  initialState?: AppState;
+}
 
 const App: React.FC<AppProps> = ({ initialState = importedInitialState }) => {
   const [state, dispatch] = useReducer(reducer, initialState);

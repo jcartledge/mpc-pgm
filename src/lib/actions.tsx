@@ -1,23 +1,23 @@
 import { BankName } from './types';
 
-export type SetFileAction = {
+export interface SetFileAction {
   type: 'setFile';
   bankName: BankName;
   padNum: number;
   file: File;
   audioBuffer: AudioBuffer;
-};
+}
 
-export type ClearFileAction = {
+export interface ClearFileAction {
   type: 'clearFile';
   bankName: BankName;
   padNum: number;
-};
+}
 
-export type SetSelectedBankNameAction = {
+export interface SetSelectedBankNameAction {
   type: 'setSelectedBankName';
   bankName: BankName;
-};
+}
 
 export type AppAction =
   | SetFileAction

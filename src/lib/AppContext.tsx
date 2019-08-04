@@ -2,10 +2,10 @@ import { createContext } from 'react';
 import { AppAction } from './actions';
 import { AppState } from './types';
 
-export type AppContextValue = {
+export interface AppContextValue {
   dispatch: React.Dispatch<AppAction> | null;
   state: AppState;
-};
+}
 
 export const emptyState: AppState = {
   selectedBankName: 'A',

@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { BankName } from '../lib/types';
 import AppContext, { AppContextValue } from '../lib/AppContext';
 
-export type BankSelectButtonsProps = {
+export interface BankSelectButtonsProps {
   useContext?: (context: React.Context<AppContextValue>) => AppContextValue;
-};
+}
 
 export const BankSelectButton = styled.button`
   width: 50px;
