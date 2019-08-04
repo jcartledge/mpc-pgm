@@ -11,7 +11,5 @@ jobs:
       script: yarn test
     - stage: build
       os: osx
-      on:
-        tags: true
-        branch: master
+      if: tag IS present AND branch = master
       script: yarn electron-pack
