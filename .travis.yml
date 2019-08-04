@@ -7,5 +7,5 @@ jobs:
       script: yarn ci
     - stage: build
       os: osx
-      if: tag IS present AND branch = master
+      if: tag IS present
       script: yarn electron-pack

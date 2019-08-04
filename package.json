@@ -52,7 +52,7 @@
     "postinstall": "electron-builder install-app-deps",
     "preelectron-pack": "yarn build",
     "preflight": "yarn audit && yarn lint",
-    "release": "yarn version && git push --tags",
+    "release": "yarn version && git push && git push --tags",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
