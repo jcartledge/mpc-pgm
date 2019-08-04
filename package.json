@@ -76,9 +76,19 @@
     "electron-builder": "^21.2.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.2",
+    "husky": ">=1",
+    "lint-staged": ">=8",
     "prettier": "^1.18.2",
     "typescript-styled-plugin": "^0.14.0",
     "wait-on": "^3.3.0",
     "web-audio-test-api": "^0.5.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*": "yarn audit && yarn lint"
   }
 }
